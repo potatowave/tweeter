@@ -1,0 +1,54 @@
+section.new-tweet {
+
+  background: #eee;
+  border: .2px solid #d7d7d7;
+  border-radius: 10px;
+  width: 400px;
+  padding: 0;
+  margin: 0 auto;
+
+}
+
+section textarea {
+
+  width: 380px;
+  height: 50px;
+  position: relative;
+  left: 10px;
+  bottom: 2px;
+
+}
+
+
+section input {
+
+  position: relative;
+  left: 10px;
+  margin-bottom: 8px;
+
+}
+
+section hr {
+
+  width: 380px;
+
+}
+
+section .counter {
+
+  float: right;
+  position: relative;
+  right: 10px;
+  top: 3px;
+  font-style: italic;
+
+}
+
+section h2 {
+
+  margin: 0;
+  position: relative;
+  left: 10px;
+  top: 4px;
+
+}

@@ -1,0 +1,95 @@
+#tweet-container {
+
+  margin: 0px 0px;
+
+}
+
+#tweet-instance {
+
+  border: .2px solid #d7d7d7;
+  border-radius: 10px;
+  width: 400px;
+  margin: 0px auto;
+  margin-top: 10px;
+
+  opacity: 0.8;
+
+}
+
+#user-icon {
+
+  position: relative;
+  top: 8px;
+  left: 10px;
+}
+
+#tweet-instance:hover {
+
+  opacity: 100;
+
+}
+
+header .realname {
+  position: relative;
+  top: -5px;
+  left: 8px;
+  padding: 12px;
+  display: inline;
+
+}
+
+header .username {
+
+  font-size: .4em;
+  font-weight: normal;
+  display: inline;
+  position: relative;
+  float: right;
+  top: 24px;
+  right: 15px;
+
+
+}
+
+header.tweet {
+
+  font-size: 2em;
+  font-weight: bold;
+  background: #eee;
+  border: .2px;
+  border-radius: 10px 10px 0px 0px;
+  height: 65px;
+
+}
+
+
+
+#tweet-footer {
+  display: inline-block;
+  width: 100%;
+  font-size: .7em;
+}
+
+content.tweet-body {
+  padding: 10px;
+  padding-top: 12px;
+  padding-bottom: 10px;
+  font-size: 1.2em;
+  display: inline-block;
+  width: 100%;
+}
+
+section hr {
+
+  width: 380px;
+
+}
+
+section h2 {
+
+  margin: 0;
+  position: relative;
+  left: 10px;
+  top: 4px;
+
+}
