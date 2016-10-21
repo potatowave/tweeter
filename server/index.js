@@ -11,10 +11,15 @@ const db         = require('./lib/db');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-db.connect((dbInstance) => {
-  app.use('/tweets', tweetsApi(dbInstance));
-});
+db((err, tweeter) => {
+  if(err) {
+    console.error(err.message);
+    return process.exit(1);
+  }
 
-app.listen(PORT, () => {
-  console.log("Example app listening on port " + PORT);
+  app.use('/tweets', tweetsApi(tweeter));
+
+  app.listen(PORT, () => {
+    console.log("Example app listening on port " + PORT);
+  });
 });

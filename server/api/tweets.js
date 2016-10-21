@@ -1,23 +1,37 @@
+// asynchron connections (node.js)
+//
+
 "use strict";
 
-const User    = require("../lib/user-helper")
+const User    = require("../lib/user-helper");
 const express = require('express');
-const tweets  = express.Router();
+const router  = express.Router();
+// const tweeter = require("../lib/db");
 
-module.exports = function(db) {
+module.exports = function(tweeter) {
 
-  tweets.get("/", function(req, res) {
-    let tweets = db.getTweets();
-    // simulate delay
-    setTimeout(() => {
-      return res.json(tweets);
-    }, 300);
+  router.get("/", function(req, res) {
+
+    // console.log("fsdfds");
+
+    tweeter.all((err, tweetdata) => {
+      if(err)
+      {
+        res.status(500);
+        return res.json({error: err.message});
+      }
+      // console.log("fsdfds", tweetdata);
+      // res.render("/", { tweet: tweetdata });
+      res.json(tweetdata);
+
+    });
+
   });
 
-  tweets.post("/", function(req, res) {
+  router.post("/", function(req, res) {
     if (!req.body.text) {
       res.status(400);
-      return res.send("{'error': 'invalid request'}\n");
+      return res.json({error: 'invalid request'});
     }
 
     const user = req.body.user ? req.body.user : User.generateRandomUser();
@@ -28,10 +42,16 @@ module.exports = function(db) {
       },
       created_at: Date.now()
     };
-    db.saveTweet(tweet);
-    return res.send();
+    tweeter.create(tweet, (err, data) => {
+      if(err)
+      {
+        res.status(500);
+        return res.json({error: err.message});
+      }
+      res.json({status: 'ok', data });
+    });
   });
 
-  return tweets;
+  return router;
 
-}
+};
