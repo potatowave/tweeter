@@ -10,101 +10,99 @@
 
 $(function () {
 
-function renderTweets(tweets) {
+    function renderTweets(tweets) {
 
-  tweets.reverse();
+        tweets.reverse();
 
-  tweets.forEach((item, index, array) => {
+        tweets.forEach((item) => {
 
-    console.log(item);
-    var tweetsParsed = createTweetElement(item);
-    $('#tweet-container').append(String(tweetsParsed));
+            var tweetsParsed = createTweetElement(item);
+            $('#tweet-container').append(String(tweetsParsed));
 
-  });
+        });
 
   // loops through tweets
     // calls createTweetElement for each tweet
     // takes return value and appends it to the tweets container
-}
+    }
 
 
-function createTweetElement(tweet) {
+    function createTweetElement(tweet) {
 
-  var currentTime = $.now();
-  var createdTime = tweet.created_at;
-  var daysAgo = (currentTime - createdTime) / 86400000;
-  var realname = tweet.user.name;
-  var handle = tweet.user.handle;
-  var tweetBody = tweet.content.text;
-  var image = tweet.user.avatars.small;
+        var currentTime = $.now();
+        var createdTime = tweet.created_at;
+        var daysAgo = (currentTime - createdTime) / 86400000;
+        var realname = tweet.user.name;
+        var handle = tweet.user.handle;
+        var tweetBody = tweet.content.text;
+        var image = tweet.user.avatars.small;
 
-  var tweetHTML = "<article id='tweet-instance'><header class='tweet'><img id='user-icon' src='" + image + "'><div class='realname'>" + realname + "</div><div class='username'>" +  handle + "</div></header><content class='tweet-body'>" + tweetBody + "<footer id='tweet-footer'>" + Math.floor(daysAgo) + " days ago.</footer></article>";
+        var tweetHTML = '<article id=\'tweet-instance\'><header class=\'tweet\'><img id=\'user-icon\' src=\'' + image + '\'><div class=\'realname\'>' + realname + '</div><div class=\'username\'>' +  handle + '</div></header><content class=\'tweet-body\'>' + tweetBody + '<footer id=\'tweet-footer\'>' + Math.floor(daysAgo) + ' days ago.</footer></article>';
 
-  return tweetHTML;
+        return tweetHTML;
 
-}
+    }
 
 
 
 // prevent form from submitting and post to it.
 
-$("form[action='/tweets']").on('submit', function( event ) {
-  event.preventDefault();
+    $('form[action=\'/tweets\']').on('submit', function( event ) {
+        event.preventDefault();
 
-  console.log(this.text.value.length);
+        if (this.text.value.length > 140) {
 
-  if (this.text.value.length > 140) {
-
-    $('.counter').html("Your tweet is too long!");
+            $('.counter').html('Your tweet is too long!');
 
 
-  } else if (this.text.value === null || this.text.value === "" || this.text.value === undefined) {
+        } else if (this.text.value === null || this.text.value === '' || this.text.value === undefined) {
 
-    $('.counter').html("Your tweet is empty!").css('color', 'red');
+            $('.counter').html('Your tweet is empty!').css('color', 'red');
 
-  } else if (this.text.value.length <= 140) {
+        } else if (this.text.value.length <= 140) {
 
-    $.ajax({
+            $.ajax({
 
-      method: 'post',
-      url: '/tweets',
-      data: $(this).serialize(),
-      success: function (data) {
-        $('.counter').html("Submitting tweet...");
-        $('#tweet-container').empty();
-        loadTweets();
-        $('.new-tweet').hide();
+                method: 'post',
+                url: '/tweets',
+                data: $(this).serialize(),
+                success: function () {
+                    $('.counter').html('Submitting tweet...');
+                    $('#tweet-container').empty();
+                    loadTweets();
+                    $('.new-tweet').hide();
+                    $('.counter').html('0');
 
-      }
+                }
+
+            });
+
+        }
 
     });
 
-  }
 
-});
+    function loadTweets () {
 
+        $.ajax({
+            method: 'get',
+            url: '/tweets',
+            success: function (data) {
+                renderTweets(data);
+            }
+        });
 
-function loadTweets () {
-
-  $.ajax({
-    method: 'get',
-    url: '/tweets',
-    success: function (data) {
-      renderTweets(data);
     }
-  });
-
-}
 
 
-loadTweets();
+    loadTweets();
 
-$('.new-tweet').hide();
+    $('.new-tweet').hide();
 
-$('.compose').on('click', function (){
-  $('.new-tweet').show();
-  $('textarea').focus();
-});
+    $('.compose').on('click', function (){
+        $('.new-tweet').show();
+        $('textarea').focus();
+    });
 
 
 });

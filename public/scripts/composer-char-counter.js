@@ -1,23 +1,23 @@
 $(function () {
 
-$('.counter').text('0');
+    $('.counter').text('0');
 
-$('textarea').keyup(function() {
+    $('textarea').keyup(function() {
 
-  var currentCount = this.value.length;
+        var currentCount = this.value.length;
 
-  if (currentCount > 140) {
+        if (currentCount > 140) {
 
-    $('.counter').text(-Math.abs(currentCount - 140));
-    $('.counter').css('color', 'red');
+            $('.counter').text(-Math.abs(currentCount - 140));
+            $('.counter').css('color', 'red');
 
-  } else {
+        } else {
 
-    $('.counter').text(currentCount);
-    $('.counter').css('color', '#244751');
+            $('.counter').text(currentCount);
+            $('.counter').css('color', '#244751');
 
-  }
+        }
 
-});
+    });
 
 });
