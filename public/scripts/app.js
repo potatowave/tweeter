@@ -12,14 +12,18 @@ $(function () {
 
     function renderTweets(tweets) {
 
-        tweets.reverse();
+        var orderArray = [];
 
         tweets.forEach((item) => {
 
             var tweetsParsed = createTweetElement(item);
-            $('#tweet-container').append(String(tweetsParsed));
+            orderArray.push(tweetsParsed);
 
         });
+
+        orderArray.reverse();
+
+        $('#tweet-container').append(orderArray);
 
     }
 
@@ -28,15 +32,53 @@ $(function () {
 
         var currentTime = $.now();
         var createdTime = tweet.created_at;
-        var daysAgo = (currentTime - createdTime) / 86400000;
+        var timeAgo = (currentTime - createdTime);
+        var timePosted = "";
         var realname = tweet.user.name;
         var handle = tweet.user.handle;
-        var tweetBody = tweet.content.text;
+        var tweetText = tweet.content.text;
         var image = tweet.user.avatars.small;
 
-        var tweetHTML = '<article id=\'tweet-instance\'><header class=\'tweet\'><img id=\'user-icon\' src=\'' + image + '\'><div class=\'realname\'>' + realname + '</div><div class=\'username\'>' +  handle + '</div></header><content class=\'tweet-body\'>' + tweetBody + '<footer id=\'tweet-footer\'>' + Math.floor(daysAgo) + ' days ago.</footer></article>';
+        if (timeAgo < 6000) {
 
-        return tweetHTML;
+            timePosted = "A moment ago.";
+
+        } else if (timeAgo >= 6000 && timeAgo < 3600000) {
+
+            timeAgo = timeAgo / 60000;
+            timePosted = Math.floor(timeAgo) + " minutes ago.";
+
+        } else if (timeAgo >= 3600000 && timeAgo < 86400000) {
+
+            timeAgo = timeAgo / 3600000;
+            timePosted = Math.floor(timeAgo) + " hours ago.";
+
+        } else {
+
+            timeAgo = timeAgo / 86400000;
+            timePosted = Math.floor(timeAgo) + " days ago.";
+
+        }
+
+
+
+        var $header = $("<header>").addClass("tweet");
+
+        $header.append($('<img src=\'' + image + '\'>').attr('id', 'user-icon'));
+        $header.append($('<div>').addClass("realname").text(realname));
+        $header.append($('<div>').addClass("username").text(handle));
+
+        var $tweetBody = $('<content>').addClass('tweet-body').text(tweetText);
+
+        var $footer = $('<footer>').attr('id', 'tweet-footer').text(timePosted);
+
+        var $tweetHTML = $('<article>').attr('id', 'tweet-instance');
+
+        $tweetHTML.append($header);
+        $tweetHTML.append($tweetBody);
+        $tweetHTML.append($footer);
+
+        return $tweetHTML;
 
     }
 
@@ -100,13 +142,7 @@ $(function () {
     $('.compose').on('click', function (){
         $('.new-tweet').toggle();
         $('textarea').focus();
-        //$('.compose').removeClass('compose').addClass('composeActive');
 
-        //$('.composeActive').on('click', function (){
-        //    $('.new-tweet').hide();
-        //    $('.composeActive').removeClass('composeActive').addClass('compose');
-        //
-        //});
     });
 
 

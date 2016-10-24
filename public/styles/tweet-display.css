@@ -67,6 +67,9 @@ header.tweet {
   display: inline-block;
   width: 100%;
   font-size: .7em;
+  background: #eee;
+  padding: 10px;
+  border-radius: 0px 0px 10px 10px;
 }
 
 content.tweet-body {
