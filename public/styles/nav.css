@@ -1,12 +1,20 @@
+.nav-container {
+
+  width: 100%;
+  height: 80px;
+  background: #00a087;
+  position: relative;
+
+}
+
 #nav-bar {
 
-  position: absolute;
   top: 0px;
-  height: 80px;
-  width: 100%;
-  background: #00a087;
+  width: 450px;
+  margin-left: auto;
+  margin-right: auto;
   color: #e8fdff;
-  padding: 0em 25%;
+  left: 50%;
 
 }
 
@@ -17,16 +25,14 @@
 }
 
 #nav-bar .header {
-  display: inline-block;
+
   line-height: 30px;
   font-size: 3em;
-  margin-left: 10px;
   vertical-align: middle;
 
 }
 
 .compose {
-  display: inline-block;
   float: right;
   border: 3px solid white;
   border-radius: 10px;

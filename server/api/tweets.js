@@ -1,6 +1,3 @@
-// asynchron connections (node.js)
-//
-
 'use strict';
 
 const User    = require('../lib/user-helper');
@@ -11,21 +8,13 @@ const router  = express.Router();
 module.exports = function(tweeter) {
 
     router.get('/', function(req, res) {
-
-    // console.log("fsdfds");
-
         tweeter.all((err, tweetdata) => {
-            if(err)
-      {
+            if (err) {
                 res.status(500);
                 return res.json({error: err.message});
             }
-      // console.log("fsdfds", tweetdata);
-      // res.render("/", { tweet: tweetdata });
             res.json(tweetdata);
-
         });
-
     });
 
     router.post('/', function(req, res) {
@@ -37,14 +26,12 @@ module.exports = function(tweeter) {
         const user = req.body.user ? req.body.user : User.generateRandomUser();
         const tweet = {
             user: user,
-            content: {
-                text: req.body.text
-            },
+            content: { text: req.body.text },
             created_at: Date.now()
         };
+
         tweeter.create(tweet, (err, data) => {
-            if(err)
-      {
+            if (err) {
                 res.status(500);
                 return res.json({error: err.message});
             }

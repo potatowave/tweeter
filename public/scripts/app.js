@@ -21,9 +21,6 @@ $(function () {
 
         });
 
-  // loops through tweets
-    // calls createTweetElement for each tweet
-    // takes return value and appends it to the tweets container
     }
 
 
@@ -42,8 +39,6 @@ $(function () {
         return tweetHTML;
 
     }
-
-
 
 // prevent form from submitting and post to it.
 
@@ -94,15 +89,27 @@ $(function () {
 
     }
 
+// Composition box show / hide.
 
     loadTweets();
 
     $('.new-tweet').hide();
 
+    $('.compose').css( 'cursor', 'pointer' );
+
     $('.compose').on('click', function (){
-        $('.new-tweet').show();
+        $('.new-tweet').toggle();
         $('textarea').focus();
+        //$('.compose').removeClass('compose').addClass('composeActive');
+
+        //$('.composeActive').on('click', function (){
+        //    $('.new-tweet').hide();
+        //    $('.composeActive').removeClass('composeActive').addClass('compose');
+        //
+        //});
     });
+
+
 
 
 });

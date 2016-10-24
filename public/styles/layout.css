@@ -3,9 +3,13 @@
  * https://css-tricks.com/international-box-sizing-awareness-day/
  * Do not modify these two selectors, please
  */
+
 html {
   box-sizing: border-box;
+  height: 100%;
+  margin: 0px;
 }
+
 *, *:before, *:after {
   box-sizing: inherit;
 }
@@ -19,16 +23,22 @@ body {
   color: #244751;
   background-color: #eee;
   font-family: 'Roboto Condensed', sans-serif;
+  height: 100%;
+  margin: 0px;
+
+
 }
 
-main {
+main.container {
 
-  position: relative;
   width: 450px;
-  height: 100%;
+  min-height: 100%;
+  height:auto !important;
   background: #fff;
-  margin: 80px auto;
-  padding-top: 40px;
+  margin: 0px auto 0px auto;
+  padding-top: 20px;
+  padding-bottom: 10px;
+
 
 }
 
