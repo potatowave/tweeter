@@ -84,15 +84,18 @@ $(function () {
 
 // prevent form from submitting and post to it.
 
+
     $('form[action=\'/tweets\']').on('submit', function( event ) {
         event.preventDefault();
+
+        this.text.value = this.text.value.replace(/^\s+/, '').replace(/\s+$/, '');
 
         if (this.text.value.length > 140) {
 
             $('.counter').html('Your tweet is too long!');
 
 
-        } else if (this.text.value === null || this.text.value === '' || this.text.value === undefined) {
+        } else if (this.text.value === null || this.text.value === '' || this.text.value === undefined || this.text.value === ' ') {
 
             $('.counter').html('Your tweet is empty!').css('color', 'red');
 
