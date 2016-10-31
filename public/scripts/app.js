@@ -6,8 +6,6 @@
 
 // Test / driver code (temporary). Eventually will get this from the server.
 
-
-
 $(function () {
 
     function renderTweets(tweets) {
@@ -112,6 +110,7 @@ $(function () {
                     loadTweets();
                     $('.new-tweet').hide();
                     $('.counter').html('0');
+                    $('textarea').val('');
 
                 }
 
@@ -143,7 +142,8 @@ $(function () {
     $('.compose').css( 'cursor', 'pointer' );
 
     $('.compose').on('click', function (){
-        $('.new-tweet').toggle();
+        $('.new-tweet').slideToggle("fast", "linear");
+        //$('.new-tweet').animate({color: 'red'}, slow);
         $('textarea').focus();
 
     });

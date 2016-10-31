@@ -3,7 +3,8 @@
   width: 100%;
   height: 80px;
   background: #00a087;
-  position: relative;
+  position: fixed;
+  z-index: 10;
 
 }
 
